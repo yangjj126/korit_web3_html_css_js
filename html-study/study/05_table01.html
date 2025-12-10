@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="table.css">
+</head>
+<body>
+
+    <!--
+    table : 표 (엑셀)
+    tr : 표의 row(가로 한줄)
+    td : 표의 dataSet(데이터) - tr안에 들어가 있음
+    -->
+
+    <table>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+        </tr>
+    </table>
+    
+    <br/><br/>
+
+    <!--
+    각 표의 헤더를 만들어 줄 수 있음
+    thead: 헤더부분
+    tbody: 본문 내용
+    th: 헤더(row 혹은 column) -- thead에는 th가 들어간다 == scoper속성(권장사항): row, column
+    tfoot: 본문 아래부분
+    -->
+
+    <table>
+        <thead>
+            <th scope ="col">운동</th> <!--세로를 대표-->
+            <th scope ="col">월</th> <!--세로를 대표-->
+            <th scope ="col">화</th> <!--세로를 대표-->
+        </thead>
+        <tbody>
+            <tr>
+                <th scope ="row">러닝</th> <!--가로를 대표-->
+                <th>40분</th>
+                <th>60분</th>
+            </tr>
+            <tr>
+                <th scope ="row">풀업</th>  <!--가로를 대표-->
+                <td>30분</td>
+                <td>20분</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <th scope ="row">총 시간</th>  <!--가로를 대표-->
+            <td>70분</td>
+            <td>80분</td>
+        </tfoot>
+    </table>
+</body>
+</html>
