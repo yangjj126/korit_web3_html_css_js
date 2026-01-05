@@ -1,0 +1,93 @@
+.settings{
+  width: 450px;
+  margin: 50px auto;
+}
+
+/* 
+남은 여백을 반으로 나눠서 좌우에 동일하게 배분하는 것이 margin: auto의 동작 원리입니다. 
+margin: 50px auto; = margin:50px 375px; (전체 1200px가정)
+*/
+
+
+h2{
+    font-size: 15px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #dbdbdb;
+}
+
+/*
+계정, 알림의 글자에 대한 설정
+*/
+
+/*
+계정 section과 알림 section간의
+간격을 조절해줘야 한다
+*/
+
+/*
+계정 알림 아래에 밑줄을 추가해준다
+음,, 조금 디자인을 신경쓰는 느낌..
+*/
+
+
+.item{
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+/*
+사용자 이름과 이메일간의 간격을 만든다
+*/
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+/*
+ `display: flex`를 하면 `label`이 **블록 요소**가 됨
+*/
+
+
+
+input[type="text"],
+input[type="email"]{
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #dbdbdb;
+    padding: 3px;
+}
+/*
+속성 선택자[속성 = '값'] 으로 선택할 수 있다
+*/
+
+input:focus{
+    outline: none;
+    /* 테두리가 존재하지 않는다 => outline:none */
+    border: 1px solid #dbdbdb;
+}
+
+input:disabled{
+    cursor:not-allowed;
+}
+
+.item.toggle{
+    display: flex;
+    align-items: center;
+}
+
+input[type="checkbox"] + label{
+    /* input[type="checkbox"] + label == 둘사이의 관계성에 대한 코드 */
+    margin-left: 8px;
+    /* input[type="checkbox"]기준으로 왼쪽으로 8px만큼 뛰우기 */
+}
+
+.save{
+    width: 100%;
+    background-color: #4499ee;
+    border: 1px solid #dbdbdb;
+    margin: 5px;
+    color: white;
+    font-weight: 400;
+    border-radius: 5px;
+}

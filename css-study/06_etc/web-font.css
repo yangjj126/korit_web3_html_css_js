@@ -1,0 +1,29 @@
+/* 웹폰트란 브라우저에게 "이런 글꼴도 있다"라고 알려주는 것 */
+
+
+/* font-face -> 폰트 등록 */
+@font-face {
+    /* css에서 우리가 사용할 글꼴이름 지정(임의로 지정가능) */
+    font-family: 'ThinRounded';
+    /* 실제 폰트 파일(ttf, woff2..) 위치*/
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2511-1@1.0/ThinDungGeunMo.woff2') format('woff2');
+    /* 폰트쿩기 (normal = 400) */
+    font-weight: normal;
+    /* 폰트 로딩이 늦으면, 기본글꼴로 보여주다가 나중에 교체 */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "our-font2";
+    /* src에 상대경로 지정 */
+    src: url(url(../../../Users/yang jun woo.20251435-P02/Desktop/ChangwonDangamRound.ttf))
+}
+
+
+h2 {
+    font-family: ThinRounded;
+}
+
+p{
+    font-family: our-font2, sans-serif;
+}

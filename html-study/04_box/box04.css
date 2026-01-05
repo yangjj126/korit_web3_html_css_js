@@ -1,0 +1,66 @@
+main {
+    width: 80vw;
+    height: 150vh;
+    box-sizing: border-box;
+}
+
+div {
+    /* 부모의 width에 대해 100% */
+    width: 100%;
+    height: 100px;
+    border: 2px solid black;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-size: 35px;
+    /* 텍스트 중앙에 정렬하기 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* box1 */
+.box1{
+    /* 
+    요소의 원래 위치기준으로 이동 가능 
+    top, left, bottom, right
+    */
+    position: relative;
+    left: 20px;
+}
+
+.box2{
+    /*
+    부모요소중에, position을 가진 요소를 기준으로 이동
+    없다면, body기준으로 이동
+    깁자기 좌우폭이 길어진 이유: 
+    main이 아니라 body의 좌우폭을 적용받았기 때문임
+    -> 기존 layout에서 탈피
+    -> z축이 생겼다,, 뭔말 = 
+    */
+    position: absolute;
+    top: 300px;
+    /* 화면에 z축 우선순위 */
+    /* 999면 z-index가 1~998인 요소위로 보겠다 */
+    z-index: 999;
+}
+
+.box3{
+    /*
+    뷰포트(브라우저화면) 기준으로 이동
+    좌우폭 -> 뷰포트 기준으로 바뀜
+    */
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+.box4{
+    /*
+    기본은 relative처럼 있다가
+    스크롤바가 내려가면, 요소가 사라지는 시점에서
+    fixed처럼 행동
+    */
+    position: sticky;
+    top: 0px;
+}
+

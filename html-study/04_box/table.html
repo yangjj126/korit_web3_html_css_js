@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./table.css">
+    <title>Document</title>
+</head>
+<body>
+    <table class="board">
+        <!--
+        thead는 th태그 사용
+        tbody는 td태그 사용 함..
+        -->
+        
+        <!-- 1번째 thead  "thead" , "tr", "th"-->
+        <thead>
+            <tr>
+                <th scope="col">번호</th>
+            <!-- "scope="col""의 뜻은 각각 "열(세로)를 담당"한다는 뜻임 -->
+                <th scope="col">제목</th>
+                <th scope="col">작성자</th>
+                <th scope="col">상태</th>
+            </tr>
+        </thead>
+
+        <!-- 2번째 tbody "tbody", "tr", "td"-->
+        <tbody>
+            <tr>
+                <td>3</td>
+                <td>서비스 점검 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>회원가입 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>신규기능 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+        </tbody>
+
+    </table>
+</body>
+</html>

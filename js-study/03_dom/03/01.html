@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./01.css">
+    <title>Document</title>
+</head>
+<body>
+    <section id="board">
+        <div id="cell-1">1</div>
+        <div id="cell-2">2</div>
+        <div id="cell-3">3</div>
+        <div id="cell-4">4</div>
+        <div id="cell-5">5</div>
+        <div id="cell-6">6</div>
+        <div id="cell-7">7</div>
+        <div id="cell-8">8</div>
+        <div id="cell-9">9</div>
+    </section>
+</body>
+<!-- <script src="./01.js"></script> -->
+<!-- <script src="./click02.js"></script> -->
+<!-- <script src="./click03.js"></script> -->
+<script>
+    const clickState = {
+        // 객체를 어떻게 다룰것인가...아예 감이 안잡힌다..
+    };
+
+    const board = document.querySelector("#board");
+    const boxes = document.querySelectorAll("#board > div") // 다가져옴
+    
+
+    for (let box of boxes){
+        box.innerText = 0; // 0초기화
+    }
+    
+    board.addEventListener("click", (e) =>{
+        // 각 박스가 클릭된 횟수를 표시될수 있도록 변경
+        // 전역에 있는 clickState에 클릭한 박스의 id를 key값 활용
+        // 클릭한 횟수를 value로 누적
+
+        // for문을 돌면서, click될때마다, 숫자를 하나씩 늘리고,
+        // 그걸 그 innerText에 넣어버린다 , 변한과정도 거쳐야 할까.
+        const target = e.target;
+        const id = e.target.id;
+        console.log(id);
+
+        // 최초클릭이면, 상태를 만들어줘야 한다
+        if (!clickState[id]){
+            // false의 값이면, 실행
+            clickState[id] = 0;
+        }
+        
+        // 객체.필드명
+        // 객체["필드명"]
+        // 객체[변수] -> 변수가 담고 있는 문자열을 필드명으로 사용
+        clickState[id] += 1;
+        console.log(clickState);
+        console.log(target);
+       
+        // 화면에 반영
+        target.innerText = clickState[id];
+    })
+</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>상품목록</h1>
+    <ul class="product-list"></ul>
+
+    <h2>장바구니</h2>
+    <button class="save-btn">주문 저장</button>
+    <button class="load-btn">주문 불러오기</button>
+    <ul class="cart-list"></ul>
+</body>
+<script>
+    // 전역변수
+    let cart = [];
+    const products = [
+        { name: "아이스 아메리카노", price: 2000}, // 이거 하나씩 product에 해당 한다
+        { name: "바닐라 라떼", price: 3500 }, // 얘도 product
+        { name: "초코 라떼", price: 4000 }, // 얘도 product
+    ];
+
+    // 상품 렌더
+    const productUl = document.querySelector(".product-list");
+
+    // <ul class="product-list"></ul>에 li내용들을 삽입하기
+    const productRender = () => {
+        let myHtml = "";
+        // 일단 빈칸으로 myHtml을 비워두기
+
+        // 상품이름 - ~원
+        // 수량을 선택할수있는 input(type = "number")
+        // 주문 버튼
+        let idx = 0;
+        for( let product of products ) {
+            myHtml += `
+                <li> 
+                    ${product.name} - ${product.price}원
+                    <input type="number" id="qty-${idx}">
+                    <button id="order-${idx}">주문</button>
+                </li>
+            `;
+            idx++;
+            // idx로는 수를 하나씩 증가시켜서, id를 qty-1,2,3이런식으로 다르게 설정헤놓기
+        }
+
+        productUl.innerHTML = myHtml;
+        // ul태그안의 product-list에 쌓아놓은 myHtml넣기
+    }
+
+
+
+
+    // 요소들
+    const cartUl = document.querySelector(".cart-list");
+    const saveBtn = document.querySelector(".save-btn");
+    const loadBtn = document.querySelector(".load-btn");
+
+
+    // 주문버튼 클릭
+    // productUl안에는 이미 상품리스트요소들이 다 들어가 있는 상태이다
+    productUl.addEventListener("click", (e) => {
+        const target = e.target; // productUl안에 있는 li요소들 중 내가 클릭한 요소 = target
+        const id = target.id; // 내가 클릭한 요소의 id
+        // console.log(target); // li들중 내가 클릭한 요소
+        if (!id.startsWith("order")){ // <button id="order-${idx}">주문</button>을 클릭했을때만, 반응하도록 설계
+            return;
+        }
+        // console.log(id); // li들중 내가 클릭한 요소의 id(주문) ==> -- id를 최종적으로 뽑앗엉       
+        // 이제 할 것은 id -> product의 index 추출
+        let idx = id.replace("order-", ""); // id를 숫자만 남겨두기.
+        idx = parseInt(idx); // 해당 숫자는 "문자타입"이기 때문에, parseInt를 통해서 정수형으로 바꾸기
+        // ---- 버튼 누르면, 
+        
+        
+
+        // 이건 위의 코드와 별개의 코드들, 즉, qtyInput으로 id가 qty-${idx}인 친구들 들고오기
+        // 수량 input
+        const qtyInput = document.querySelector(`#qty-${idx}`); // id = qty-${idx}를 들고와서
+        let qty = qtyInput.value; // 해당 input의 값을 도출해내고
+        qty = parseInt(qty); // 그 값 또한 정수로 바꾼다
+
+        const product = products[idx];
+        // 주문 내역을 cart에 저장
+        
+        // 만약에, 기존 cart에 상품이 있다면, qty 누적합
+        const item = cart.find((item) => {
+            return item.name === product.name;
+        });
+
+        
+        if (item) { // true일때 -> qty 추가
+                
+        } else { // false일때 -> 새로 추가
+            cart.push({
+                name : product.name,
+                price : product.price,
+                quantity : qty
+            });
+        }
+        
+
+
+        // 없다면, 새로 추가
+        cart.push({
+            name : product.name,
+            price : product.price,
+            quantity : qty
+        }); // cart에는 name, price, quantity가 담겨 있음
+
+        renderCart();
+        // 문제가 값이 계속 쌓이는게 아니라, 
+        // 음, 한번 아메리카노 3개 했으면, 그다음에 아메리카노 주문할 때
+        // 다시 아메리카노 1개로 돌아간다....
+    });
+    // 위의 코드는 무엇을 뜻하는가
+
+
+
+
+    // 장바구니의 값이 바뀌면, 호출되어야 함
+    const renderCart = () => {
+        let myHtml = "";
+        // cart 
+        // <li>상품이름 - ~개 - 총가격</li> x cart에 담긴 만큼 반복
+        for (let item of cart){
+            const {name, quantity, price} = item;
+            myHtml += `
+                <li>
+                    <p>${name} - ${quantity}개</p>
+                    <div>총가격 : ${price * quantity}원</div>
+                </li>
+            `
+        }
+
+        cartUl.innerHTML = myHtml;
+    }
+
+    productRender();
+</script>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./box03.css">
+</head>
+<body>
+    <!-- flex는 레이아웃 정렬시 사용되는 속성 -->
+    <main><
+        <section class="example">
+           <h2>flex-direction</h2>
+            <!-- 
+            flex-direction 속성
+            값 종류
+            row : 가로로 왼 -> 오 배치(기본값)
+            row-reverse : 가로로 오 -> 왼 배치
+            column : 세로로 위 -> 아래 배치
+            column-reverse : 세로로 아래 -> 위 배치
+            -->  
+            <div class="container" style="flex-direction: row-reverse;">
+                <div class="item">1</div>
+                <div class="item">2</div>
+                <div class="item">3</div>
+            </div>
+        </section>
+
+
+
+        <section class="example">
+           <h2>justify-content</h2>
+           <!-- 
+           justify-content 속성(주축에 대해 정렬)
+           flex-start(기본값) : 주축 시작점 정렬 == > 기본값임
+           center: 주축 중앙 정렬
+           flex-end: 주축 끝 정렬
+           space-between : 양끝 고정 + 중간 동일 간격
+           space-around : 좌우로 나란히 <- ->
+           space-evenly : 모든 간격을 완전히 동일하게
+           -->
+            <div class="container" style="justify-content: space-evenly;">
+                <div class="item">A</div>
+                <div class="item">B</div>
+                <div class="item">C</div>
+            </div>
+        </section>
+
+        
+
+        <section class="example">
+           <h2>align-items</h2>
+           <!--
+           align-items 속성(교차축 정렬)
+           flex-start: 시작점 정렬
+           flex-end : 끝정렬(아래)
+           center: 중앙정렬
+           ----
+           baseline: 글자 기준선에 맞춰 정렬
+           -->
+            <div class="container" style="align-items: center">
+                <div class="item" style="height: 120px">큰</div>
+                <div class="item" style="height: 100px">중간</div>
+                <div class="item" style="height: 80px">작은</div>
+            </div>
+        </section>
+
+        
+
+        <section class="example">
+           <h2>flex-wrap</h2>
+           <!--
+           flex-wrap : 줄바꿈 - flex안에 있는 요소들이 넘칠때
+           nowrap(기본값) : 줄바꿈 x, 넘칠경우 내부요소가 줄어듬
+           wrap : 공간이 부족하면, 줄바꿈 한다
+           -----
+           wrap-reverse : 줄바꿈 + 위아래 반전
+           -->
+            <div class="container"
+                 style="width: 400px;
+                 flex-wrap: wrap;
+                 gap: 10px;"
+                 >
+                <div class="item">1</div>
+                <div class="item">2</div>
+                <div class="item">3</div>
+                <div class="item">4</div>
+                <div class="item">5</div>
+                <div class="item">6</div>
+            </div>
+        </section>
+
+
+
+        <section class="example">
+           <h2>flex-grow</h2>
+           <!--
+           grow : flex 요소들의 공간분배 비율 조정
+           - 0(기본값) : 여유공간을 차지 x
+           - 1,2,3...: 숫자 비율대로 여유공간 분배
+           -->
+            <div class="container">
+                <div class="item" style="flex-grow: 1">grow1</div>
+                <div class="item" style="flex-grow: 3">grow2</div>
+                <div class="item" style="flex-grow: 1">grow3</div>
+            </div>
+        </section>
+        <!-- 
+        중앙정렬 하는 방법
+        1. margin 위아래 + auto -> 일반적으로 요소가 하나일때
+        2. flex + align-items + justify-content -> 요소가 여러개일때
+        -->
+    </main>
+</body>
+</html>

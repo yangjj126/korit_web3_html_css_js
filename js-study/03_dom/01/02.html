@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./table.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="noticeTitle"></h1>
+    <table class="notice">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일자</th>
+            </tr>
+        </thead>
+         <!--   -->
+        <tbody>
+        </tbody>
+        <!--    -->
+    </table>
+</body>
+<script>
+// h1태그안에 "공지사항" 텍스트 주입
+const h1 = document.querySelector("h1");
+h1.innerText("공지사항")
+
+// tbody안에 아래의 데이터를 HTML객체로 변환하여 반복 주입
+// <tr>
+//  <td></td> * 4
+// </tr>
+const posts = [
+    {id: 1, title: "공지1", author: "관리자", createAt: "2025-01-01"},
+    {id: 2, title: "공지2", author: "관리자", createAt: "2025-01-02"},
+    {id: 3, title: "공지3", author: "관리자", createAt: "2025-01-03"},
+    {id: 4, title: "공지4", author: "관리자", createAt: "2025-01-04"},
+]
+
+// for문 또는 foreach문으로 
+// <tr>
+//  <td></td> * 4 이 구조를 다 받아와서, 안에다가 id, title, author, createAt넣어야 할듯
+// </tr>
+
+// 구체적인것 : 먼저, tbody들고와서, 그 안에 for문으로 
+
+const table = document.querySelector("tbody");
+for (post of posts){
+    table.innerHTML += `(
+        <tr>
+            <td>`${post.id}`</td>
+            <td>`${post.title}`</td>
+            <td>`${post.author}`</td>
+            <td>`${post.createAt}`</td>
+        </tr>
+    )`
+// += 해주는 이유는, 계속해서 해당 구조를 추가해줘야 하기 때문에 이방법을 사용한다
+
+posts.forEach((post) => {
+    noticeTbody.innerHTML += `
+        <tr>
+            <td>${post.id}</td>
+            <td>${post.title}</td>
+            <td>${post.author}</td>
+            <td>${post.createAt}</td>
+        </tr>
+    `;
+});
+}
+
+
+
+
+
+
+
+// for(let post of posts) {
+//     let myTr = document.createElement("tr");
+//     const postVals = Object.values(post);
+//     console.log(postVals);
+//     for(let val of postVals) {
+//         let myTd = document.createElement("td");
+//         myTd.innerText = val;
+//         myTr.appendChild(myTd);
+//     }
+//     noticeTbody.appendChild(myTr);
+// }
+
+
+</script>
+</html>

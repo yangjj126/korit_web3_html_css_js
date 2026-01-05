@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./input.css">
+    <title>Document</title>
+</head>
+<body>
+    <main class="settings">
+        <h1>환경설정</h1>
+        <section class="section">    
+            <h2>계정</h2>
+            
+            <!--1번째 div-->
+            <div class="item">
+                <!--
+                label의 "for"와 "input"의 "id"를 맞추면, 
+                하나의 요소처럼 행동한다
+                label을 클릭해도, input을 클릭한 것처럼 행동
+                -->
+                <!-- 예를 들어서, 사용자이름이라는 label을 클릭해도, input을 클릭한것이 됨 => label누르고 검색해도 됨 -->
+                <label for="username">사용자이름</label>
+                <input 
+                    type="text"
+                    id="username"
+                    placeholder="이름입력"
+                >
+                <!-- 그니깐, label의 for과 input의 id를 맞춰줘라 -->
+            </div>
+            
+            <!--2번째 div-->
+            <div class="item">
+                <label for="email">이메일</label>
+                <input 
+                    type="email"
+                    id="email"
+                    value="user@example.com"
+                    disabled
+                >
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>알림</h2>
+            <div class="item toggle">
+                <input 
+                    type="checkbox"
+                    id="notify"
+                    checked
+                >
+                <label for="notify">알림받기</label>
+            </div>
+
+            <div class="item toggle">
+                <input 
+                    type="checkbox"
+                    id="emailNotify"    
+                >
+                <label for="emailNotify">이메일 알림</label>
+            </div>
+        </section>
+        <button class="save">저장</button>
+    </main>
+</body>
+</html>

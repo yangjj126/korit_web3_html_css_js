@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-bottom: 5px;
+            padding: 6px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .success {
+            color: green;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>회원가입</h1>
+    <div>
+        <input type="text" id="username" placeholder="아이디">
+        <span id="username-msg"></span>
+    </div>
+    <div>
+        <input type="password" id="password" placeholder="비밀번호">
+        <span id="password-msg"></span>
+    </div>
+    <div>
+        <input type="text" id="email" placeholder="이메일">
+        <span id="email-msg"></span>
+    </div>
+    <button id="submit">가입</button>
+</body>
+<script>
+// [input, input, input] -- 아래코드
+const inputs = document.querySelectorAll("input");
+// 반복을 돌면서, 이벤트 리스너 장착
+inputs.forEach((input, idx) => { // 여기서 idx는 뭐임
+    // keydown 이벤트 : 키보드 키가 눌리는 이벤트
+    input.addEventListener("keydown", (e) => {
+        // console.log(e.key);
+        // 내가 누르고 있는 키들이 전부 감지 된다..
+        const key = e.key;
+        console.log(`${idx}번 input에 키 감지됨`);
+        if (key === "Enter"){
+            // 현재 input다음 input에 포커스해라
+            inputs[idx + 1]?.focus();
+        }
+
+        if (key === "Tab"){
+            // 브라우저에서 Tab키가 작동하는 기본동작
+            // 제거
+            e.preventDefault();
+            inputs[idx -1]?.focus();
+        }
+    })
+})
+
+    const submitBtn = document.querySelector("#submit");
+    const emailInput = document.querySelector("#email");
+    // 이메일 input에서 Enter을 누르면,
+    // 가입버튼이 focus()되게 해주세요!
+    emailInput.addEventListener("keydown", (e) =>{
+        const key = e.key;
+        if (key === "Enter"){
+            submitBtn.focus();
+        }
+    });
+
+    // change 이벤트
+    // input에서 작성을 완료하고, focus가 사라지는 순간 생성됨
+    // 작성하다 딴거 클릭할떼...
+    emailInput.addEventListener("change", (e) => {
+        // @ 있는지 검사
+        // 읎으면, 에러 띄우기
+        
+        // span태그 가지고 오기
+        const msg = document.querySelector("#email-msg");
+        const inputValue = e.target.value; // 찾아보기
+
+        isValidEmail = inputValue.includes("@");
+        if (isValidEmail){
+            msg.innerText = "사용가능한 이메일 입니다";
+            msg.className = "success";
+        } else {
+            msg.innerText = "이메일 형식이 아닙니다";
+            msg.className = "error";
+        }
+    })
+
+    // 아이디 input 검증
+    const usernameInput = documnet.querySelector("#username");
+    usernameInput.addEventListener("change", (e) => {
+        // 아이디는 4글자 이상인지 확인
+        const msg = document.querySelector("#username-msg");
+        const target = e.target;
+        const inputValue = target.value;
+        if (inputValue < 4){
+            msg.innerText = "아이디는 4자 이상이어야 합니다"
+            msg.className = "error"
+        } else {
+            msg.innerText = "사용가능한 아이디 입니다"
+            msg.className = "success"
+        }
+    })
+
+
+    const inputRules = {
+        username : {
+            validate : (value) => value.length >= 4,
+            success : "사용 가능한 아이디 입니다",
+            error : "아이디는 4글자 이상입니다"
+        },
+        password : {
+            validate : (value) => value.length >= 6,
+            success : "사용 가능한 패스워드 입니다",
+            error : "아이디는 6글자 이상입니다"
+        },
+        email : {
+            validate : (value) => value.includes("@"),
+            success : "사용 가능한 이메일 형식이 아닙니다",
+            error : "이메일 형식이 아닙니다"
+            // 니탓이 아니라, 그냥 자연스러운과정이겟지
+            // 남한테 의존하지 말고, 요구할서 요구하고, 선지키고 
+
+        }
+    }
+
+
+    for (let input of inputs){
+        input.addEventListener("change", (e) => {
+            const target = e.target;
+            const {id, value} = target;
+            // ex) 첫반복 id = "username"
+            const rule = inputRules[id];
+            const {validate, success, error} = rule;
+
+            const msgSpan = document.querySelector(`${id}-msg`);
+            const isValid = validate(value);
+
+            msgSpan.innerText = isValid ? success : error;
+            msgSpan.className = isValid ? "success" : "error";
+
+            // custom 훅을 배울때, 비슷한 방식을 사용한다..
+        })
+    }
+</script>
+</html>

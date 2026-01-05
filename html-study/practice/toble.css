@@ -1,0 +1,65 @@
+.board {
+    width: 100%;
+    font-size: 14p;
+    /* table관련 css작성 */
+    /* border-collapse -> border 공유 -> 음, 선을 하나만 놔두겟다 */
+    border-collapse: collapse;
+
+    /* 
+    table layout 기본값은 auto 
+    auto -> 내용을 기준으로 좌우 폭 계산
+    
+    fixed -> th, td 폭을 지정 가능 ( 폭 조정 가능 )
+    -> 폭 지정시, 실제 폭이 아닌, 최소값을 지정하는 것
+    -> 여유 공간이 있다면, 폭의 크기를 비율로 나눠가져 간다
+    */
+    table-layout: fixed;
+}
+
+.board th,
+.board td{
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+
+/*
+각각의 
+cell박스들을 배열 및 디자인을 지정함
+*/
+
+.board thead th {
+    background-color: #eee;
+}
+/*
+기준 cell들의 배경화면을 다르게 지정
+*/
+
+
+
+
+/*
+각각의 cell들을 합쳐주는 코드가 필요함
+*/
+
+/* 1번 칼럼 지정: 번호 */
+.board tr > th:nth-child(1), /* = 번호 */
+.board tr > td:nth-child(1) { /* 3,2,1 */
+    width: 30px;
+}
+/* 2번 칼럼 지정: 번호 */
+.board tr > th:nth-child(2), /* = 재목 */
+.board tr > td:nth-child(2) { /* 서비스점검 안내,회원가입 안내,신규기능 안내 */
+    width: 150px;
+}
+/* 3번 칼럼 지정: 번호 */
+.board tr>th:nth-child(3), /* = 작성자 */
+.board tr>th:nth-child(3) { /* 관리자, 관리자, 관리자 */
+    width: 80px;
+}
+/* 4번 칼럼 지정: 번호 */
+.board tr>th:nth-child(4), /* = 상태 */
+.board tr>td:nth-child(4){ /* 공지 */
+    width: 200px;
+}
+

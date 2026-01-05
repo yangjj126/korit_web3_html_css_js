@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- input을 다루는 DOM API -->
+    <input type="text" class="todo-input">
+    <button class="todo-btn">등록</button>
+    <ul class="todo-list"></ul>
+</body>
+<script>
+    const todoInput = document.querySelector(".todo-input");
+    const todoBtn = document.querySelector(".todo-btn");
+    const todoUl = document.querySelector(".todo-list");
+
+    // 버튼이 클릭되는지 계속 해서 감시해야함 -- while문으로 누군가 구현해놧을 거임
+    // addEventListner("이벤트이름",이벤트가 일어났을때, 실행할 함수 - 브라우저에게 알려줌)
+    todoBtn.addEventListener("click", () => {
+        // 클릭이 되면
+        // input에 입력된 값을 가져와서,
+        const inputVal = todoInput.value; // 타이핑한 값 들고온다
+        if (inputVal === ""){
+            alert("입력값은 비어있을 수 없어요");
+            return;
+        }
+        
+        // ul안에다가 li태그를 주입 
+        todoUl.innerHTML += `<li>${inputVal}</li>`;
+
+        // 입력창 초기화
+        todoInput.value = "";
+    }); 
+    // 브라우저가 한다 
+</script>
+</html>

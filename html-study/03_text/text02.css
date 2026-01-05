@@ -1,0 +1,25 @@
+div {
+    /* 텍스트 정렬: left, right, center, justify*/
+    text-align: justify;
+    /* 글자 간격(자간) */
+    letter-spacing: 0.1em;
+    /* 단어간 간격(스페이스바 크기)*/
+    word-spacing: 0.1em;
+    /* 줄높이 */
+    /* line-height: 2em; */
+    /* 대부분의 경우에, line-height는 방해되는 속성 */
+    /* 정렬할때, 줄높이 때문에, 정렬이 안되는 경우 많음 */
+    /* line-height: 1; -> 현재 줄에서 위아래로 
+    긴 글자 기준으로 줄높이를 설정*/
+}
+
+ul {
+    /* ul기본 리스트 스타일 제거 */
+    list-style: none;
+    /* ul, ol 기본값으로 왼쪽에 공간이 존재함 -> 제거 */
+    padding-left: 0;
+}
+
+ol {
+     list-style: none;
+}

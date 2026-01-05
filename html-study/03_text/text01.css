@@ -1,0 +1,39 @@
+header {
+    /* font-size 글자 크기 */
+    /* 글자 크기의 단위 px은 절대값 */
+    font-size : 40px;
+    /* font-weight 100 ~ 900(700) */
+    font-weight : 600;
+}
+
+
+main {
+    font-size : 60px;
+    /* color: 글자색 */
+    color : #797979;
+    /* main 안쪽에 있는 모든 텍스트들이 60px, 색변경 됨 
+    font ~
+    text ~
+    color
+    속성들은 부모에 적용되면, 자식들도 상속받아 적용된다
+    */
+}
+
+main > div {
+    /*
+    em: 부모 텍스트 크기의 비율
+    사실상 %와 동일 0.5em -> 50%
+    */
+    font-size : 0.5em;
+    font-style :italic;
+}
+
+main > div > div {
+    /* root - em */
+    font-size : 1rem;
+    /*
+    html에 설정된 font-size를 기준으로 배율을 설정하겠다
+    1rem -> html에 설정된 font-size 그대로 쓰겠다
+    0.5rem -> html에 설정된 font-size크기의 반을 쓰겠다
+    */
+}

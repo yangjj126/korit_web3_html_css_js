@@ -1,0 +1,63 @@
+.body{
+    margin: 0;
+}
+
+.container{
+    width: 340px;
+    margin: 60px auto;
+}
+
+.origin{
+    /* transform으로 이동한 박스의 원래 위치 표시용 */
+    width: 120px;
+    height: 120px;
+    border: 1px solid #333;
+    margin: 40px;
+    /* 
+    float -> 기존요소들 사이에서 빠져나옴 
+    -> z 축 이동 (뒤로 숨거나, 위로 올라오거나)
+    */
+    /* 권장: 사용 x */
+    float: left;
+}
+
+.box{
+    width: 120px;
+    height: 120px;
+    background-color: orange;
+}
+
+/* 
+transform는 요소의 모양을 바꾸는 속성
+레이아웃에는 영향을 주지 않는다
+-> ex) transform으로 크기를 키워도,
+       좌우 요소들이 밀려나지 않는다
+*/
+
+/* 이동 */
+.move:hover{
+    /* 마우스를 올리면 */
+    /* translate(x좌표, y좌표) */
+    /* 위치이동 처럼 보이지만, 실제 좌표가 바뀐게 X */
+    transform: translate(40px, 20px);
+}
+
+/* 확대 */
+.scale:hover{
+    /* scaale(배수) */
+    transform: scale(1.5);
+}
+
+
+/* 회전 */
+.rotate:hover{
+    /* rotate(45deg) */
+    transform: rotate(45deg);
+}
+
+/* 기울이기 */
+.skew:hover{
+    /* 글자나 카드, 책 미리보기 화면에서 자주 사용된다 */
+    /* skewX(20deg), skewY(20deg) */
+    transform: skewY(10deg, 10deg);
+}

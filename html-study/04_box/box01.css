@@ -1,0 +1,102 @@
+/* 
+박스 모델
+- 모든 HTML 요소는 박스형태의 사각형 영역을 가짐
+- 컨텐츠, 패딩, 보더, 마진으로 이루어져있다.
+
+컨텐츠 : 요소의 실제 텍스트, 이미지 등이 위치하는 영역
+패딩 : 테두리 안쪽 내부 여백
+보더 : 테두리
+마진 : 테두리 바깥쪽 외부 여백
+-> 박스모델 디자인은 상속 x
+*/
+
+/* 요소의 너비와 높이를 지정 */
+/* 지정을 안 할 경우, 컨텐츠 영역의 크기가 자동으로 설정 */
+/* 실제 담긴 컨텐츠가 width, height을 넘어가면, 넘칠 수 있음 */
+div {
+    /* 크기 px -> 절대값 */
+    /* 크기 단위 % -> 부모의 크기 
+    하지만, 부모태그에 크기가 설정되어있지 않다면, 
+    계속해서 크기를 가진 부모를 찾아 올라간다
+    */
+
+    /* vh, vw : 현재 뷰포트기준 높이, 너비 */
+    width: 200px;
+    height: 200px;
+
+    /*
+    RGB
+    각각 0 ~ 255로 강도를 줘서 색을 표현할 수 있음
+    -> 간단하게 표현하기 위해 16진수 2자리로 표현
+    #797979 -> R(79) G(79) B(79)
+    */
+    background-color: #a9a9a9;
+}
+
+
+.box1 {
+    background-color: #595959;
+    /* 패딩, 마진 각각 top, left, right, bottom 지정 가능*/
+    /* padding-bottom: 10px;
+    margin-bottom: 10px; */
+    /*
+        margin or padding : 상 우 하 좌(시계방향);
+        margin or padding : 상  좌우 하;
+        margin or padding : 상하 좌우;
+        margin or padding : 상하좌우;
+    */
+    margin : 12px 8px 4px 0px;
+    padding : 12px 8px 4px 0px;
+
+    /* width와 height가 실제 전체 박스 크기를 지정하지 않음을 주의*/
+    /* 패딩, 마진, 보더 모두 포함한 크기를 고려*/
+
+    /*
+    박스 사이징
+
+    content-box : width, height이 content영역을 지정
+    border-box : 패딩과 보더를 width, height
+    */
+    box-sizing : border-box;
+}
+
+.box2{
+    background-color: #fdfdfd;
+    /* 보더는 크기, 스타일, 색상을 순서대로 지정*/
+    border: 3px solid #292929;
+    border-bottom: 1px solid black;
+    /* 보더의 모서리를 둥글게 만들 수 있다 */
+    border-radius: 50%;
+}
+
+.box3{
+    background-color: #fdfdfd;
+    border: 2px solid #292929;
+    /* block요소는 위아래 마진을 지정하고, 좌우를 auto --> 가운데 정렬 */
+    margin: 10px auto;
+    /* 내용이 흘러넘칠때*/
+    /* visible, auto, hidden, scroll 
+    auto : 흘러넘치면, 스크롤바가 생김, 아닐 시 스크롤바x
+    hidden : 내용물을 잘라버림 ( 사진, 썸네일 )
+    scroll : 항상 스크롤바
+    */
+    overflow: scroll;
+}
+
+/* 스크롤바도 css가 가능하다 */
+/* 참고) 벤더프리픽스
+webkit -> 크롬, 엣지, 사파리, 오페라만 지원
+-> firefox는 지원 X
+표준화 되어있지 않지만, 미리 써볼수 있게 만들어 놓은
+속성을 벤더프리픽스라고 한다
+*/
+.box3::-webkit-scrollbar-thumb {
+    width: 5px;
+    background-color: #797979;
+}
+
+.box3::-webkit-scrollbar{
+    background-color: #c9c9c9;
+    cursor: pointer;
+    border-radius: 5px;
+}

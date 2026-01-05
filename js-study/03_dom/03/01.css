@@ -1,0 +1,38 @@
+#board {
+    width: 300px;
+    margin: 40px auto;
+    display: flex;
+    flex-wrap: wrap; /* wrap때매 넘어감 */
+    border: 1px solid black;
+}
+
+/* 바두판무늬만들기 3x3 */
+#board > div {
+    width: 33.333333%;
+    height: 100px;
+    box-sizing: border-box;
+    border: 1px solid black;
+
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.click{
+    background-color: grey;
+}
+
+.answer{
+    background-color: green;
+}
+
+.wrong{
+    background-color: red;
+}
+
+
+
+

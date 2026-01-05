@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./toble.css">
+    <title>Document</title>
+</head>
+<body>
+    <table class="board">
+        <!-- 
+        thead(col)는 가로줄 즉, 기준값을 담당
+        tbody는  해당하는 값들 즉, 기준값에 해당하는 값(가로줄) 담당
+        -->
+        <thead>
+            <tr> <!-- table row = 가로 한줄 -->
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>상태</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <!-- td는 해당 tr 안에서 각각의 셀 값 -->
+                <td>3</td>
+                <td>서비스 점검 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>회원가입 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>신규기능 안내</td>
+                <td>관리자</td>
+                <td>공지</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

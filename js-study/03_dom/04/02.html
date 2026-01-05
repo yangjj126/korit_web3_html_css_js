@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style></style>
+</head>
+<body>
+    <input type="text" class="todo-input">
+    <button class="todo-btn">입력</button>
+    <button class="save-btn">저장</button>
+    <button class="load-btn">불러오기</button>
+    <ul class="todo-list"></ul>
+</body>
+<script>
+    const todoInput = document.querySelector(".todo-input");
+    const todoBtn = document.querySelector(".todo-btn");
+    const saveBtn = document.querySelector(".save-btn");
+    const loadBtn = document.querySelector(".load-btn");
+    const todoUl = document.querySelector(".todo-list");
+
+    let todos = [];
+
+    const render = () => {
+        // 1. 주입해줄 HTML 조립 하기
+        let myHtml = ""
+        // 버튼이 눌러지면 -> todos 리스트에서 todo.text를 삭제해야 한다
+        // index를 알아야 한다
+        let idx = 0
+        for (let todo of todos){
+            myHtml += `
+                    <li>${todo.text}</li>
+                    <button>삭제</button>
+                `
+        }
+        // 2. 한번만 주입 -- 가식적이게 살지 않는다 그게 내 법칙.
+        todoUl.innerHTML = html;
+    }
+
+    // 전역에 있는 todos를 로컬스토리지에 저장
+    saveBtn.addEventListener("click", () => {
+        // "todos" key로 로컬스토리지에 저장
+        const saveData = JSON.stringify(todos);
+        localStorage.setItem("todos", saveData);
+        alert("저장완료")
+    })
+
+
+    loadBtn.addEventListener("click" ,() => {
+        // 로컬스토리지에 있는 리스트를 가져와서
+        const savedData = localStorage.getItem("todos");
+        if (!savedData){
+            alert("저장된 데이터가 없습니다")
+            return;
+        }
+
+        // js객체로 변환 -> 재대입
+        todos = JSON.parse(savedData);
+        render();
+
+        // todos에 대입 -> 렌더링
+    })
+
+
+
+    // input에 입력한 값을 todos에 추가를 해줄거얌
+    todoBtn.addEventListener("click", () => {
+        const value = todoInput.value;
+        if (value === ""){
+            alert("비어있을 수 없습니다");
+            return;
+        }
+
+        // todos = [...todos, {text: value}];
+        todos.push({text: value});
+        todoInput.value = "";
+        render();
+        // todos -> ul안에 렌더링 -> 이래서 항상 계획을 짜야함
+    })
+
+    todoUl.addEventListener("click", (e) => {
+        const target = e.target;
+        const id = target.id; // 
+        if (id.startsWith("btn-")){
+            return;
+        }
+        // btn-1 -> 1
+        let todoIdx = id.replace("btn-", "");
+        todoIdx = parseInt(todoIdx);
+        // [1,2,3].splice(0,2)
+        todos.splice(todoIdx, 1); // todoIdx에 있는 데이터 삭제가 된다..
+        render();
+    })
+</script>
+</html>

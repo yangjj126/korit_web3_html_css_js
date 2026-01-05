@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 반응형 css - width 조건으로만 */
+
+/* 요즘 - 기본 -> 모바일 기준 */
+
+body {
+    /* 기본배경 */
+    background-color: lightcoral;
+}
+
+.box{
+    height: 50vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 24px;
+    color: white;
+}
+
+/* 태블릿 이상 크기 일시 */
+/* 화면 너비가 768px이상이면, 이 안의 css를 적용하세요 */
+@media (min-width: 768px) {
+    body {
+        background-color: lightgreen;
+    }
+}
+
+/* 데스크탑 이상 */
+@media (min-width: 1024px) {
+    body {
+        background-color: steelblue;
+    }
+}

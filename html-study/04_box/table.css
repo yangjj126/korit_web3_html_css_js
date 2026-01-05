@@ -1,0 +1,56 @@
+.board{
+    width: 100%;
+    font-size: 14px;
+
+
+    /* border-collapse */
+    border-collapse: collapse;
+
+    /* 
+    table layout 기본값 : auto
+
+    auto -> 내용을 기준으로 좌우 폭 계산
+
+    fixed -> th, td 폭을 지정할때
+    -> 폭 지정시, 실제 폭이 아닌 최소값을 지정하게 됨
+    -> 여유 공간이 있다면, 폭의 크기를 비율로 나눠가져간다
+    */
+    table-layout: fixed;
+}
+
+.board th, .board td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+
+.board thead th {
+    background-color: #eee;
+}
+
+
+
+/* 1번 칼럼 지정: 번호 */
+.board tr > th:nth-child(1), /* 무슨 말일까.. */
+.board tr > td:nth-child(1) {
+    width: 50px;
+}
+
+/* 2번 칼럼 지정: 번호 */
+.board tr > th:nth-child(2), /* 무슨 말일까.. */
+.board tr > td:nth-child(2) {
+    width: 200px;
+}
+
+/* 3번 칼럼 지정: 번호 */
+.board tr > th:nth-child(3), /* 무슨 말일까.. */
+.board tr > td:nth-child(3) {
+    width: 100px;
+}
+
+/* 4번 칼럼 지정: 번호 */
+.board tr > th:nth-child(4), /* 무슨 말일까.. */
+.board tr > td:nth-child(4) {
+    width: 80px;
+}
+

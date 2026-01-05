@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-cox;
+}
+
+main{
+    width: 900px;
+    /* 가운데 정렬 */
+    margin: 30px auto;
+}
+
+.container {
+    /* container에 담긴 요소들을 정렬하겠다(flex로) */
+    display: flex;
+    background-color: #dbdbdb;
+    padding: 15px;
+    border: 2px solid black;
+}
+
+.item{
+    width: 80px;
+    height: 80px;
+    background-color: #797979;
+    color: white;
+    font-size: 22px;
+    /* flex하위 요소들(숫자(글자)) 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}

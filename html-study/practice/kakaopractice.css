@@ -1,0 +1,67 @@
+body{
+    margin: 0;
+    padding: 0;
+    /* 높이 == 브라우져 화면 */
+    height: 100vh;
+
+    background-color: rgb(46, 46, 46);
+    color: #dbdbdb;
+}
+
+.all {
+    width: 100%;
+    /* 브라우져 화면 전체를 기준으로 설정 */
+    height: 100%;
+    display: flex;
+    flex-direction:column;
+
+    align-items: center;
+    margin-top: 80px;
+}
+
+.logo{
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+
+.box{
+    width: 35%;
+    height: 60vh;
+    border: 1px dotted #dbdbdb;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.most{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.most input[type="text"],
+.most input[type="password"]{
+    width: 80%;
+    color: white;
+    font-size: 16px;
+    background-color:  rgb(46, 46, 46);
+
+    border: none;
+    border-bottom: 1px solid #dbdbdb;
+    outline: none;
+
+    padding: 5px;
+}
+
+
+.check{
+    
+}

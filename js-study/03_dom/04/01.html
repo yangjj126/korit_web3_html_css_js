@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="text">
+    <button id="save">저장</button>
+    <button id="load">저장</button>
+    <button id="save-data">불러오기</button>
+</body>
+<script>
+    // localStroge 사용하기
+    const input = document.querySelector("#test");
+    const saveBtn = document.querySelector("#Save");
+    const loadBtn = document.querySelector("#load");
+    const saveDataDiv = document.querySelector("#save-data")
+
+    // saveBtn이 클릭되면,
+    saveBtn.addEventListener("click", () => {
+        const value = input.value;
+        // 로컬스토리지에 JS객체 OR 리스트를 저장
+        // -> JSON화 하여서, 저장을 할 것임 -- JSON은 문자열
+        const myData = {
+            value : value,
+            user : "admin"
+        }
+        // JSON.stringify(데이터) -> 데이터를 JSON화하여 해줌
+        const jsonMyData = JSON.stringify(myData);
+        // localStroge에 저장
+        localStorage.setItem("myData",value);
+        alert("저장완료");
+        input.value = "";
+    });
+
+    // loadBtn이 클릭되면
+    loadBtn.addEventListener("click", () => {
+        const jsonvalue = localStorage.getItem("myData");
+        // JSON.parse(데이터) -> js객체, js리스트
+        const value = JSON.parse(jsonValue)
+
+        saveDataDiv.innerText = `
+            저장한 값: ${value.value}
+            작성자 : ${value.user}
+        `;
+        // 사용방법 localStorage형태로 저장 하게 되는 코드들 화룡 방법 알기
+    })
+    // 자바스크립트 객체를 넣어야 유용하게 사용 할 수 있다
+</script>
+</html>

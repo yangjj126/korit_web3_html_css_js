@@ -1,0 +1,130 @@
+.settings {
+    width: 450px;
+    margin: 50px auto;
+}
+
+/* 
+남은 여백을 반으로 나눠서 좌우에 동일하게 배분하는 것이 margin: auto의 동작 원리입니다. 
+margin: 50px auto; = margin:50px 375px; (전체 1200px가정)
+*/
+
+.settings h1 {
+    margin-bottom: 30px;
+}
+/*
+계정, 알림의 글자에 대한 설정
+*/
+
+.section {
+    margin-bottom: 50px;
+}
+/*
+계정 section과 알림 section간의
+간격을 조절해줘야 한다
+*/
+
+.section h2{
+    font-size: 16px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #dbdbdb;
+}
+/*
+계정 알림 아래에 밑줄을 추가해준다
+음,, 조금 디자인을 신경쓰는 느낌..
+*/
+
+.item {
+    margin-bottom: 15px;
+}
+/*
+사용자 이름과 이메일간의 간격을 만든다
+*/
+
+label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+/*
+label은  inline이기 때문에,
+block요소로 바꿔주고, 음, 그걸 사용하쇼
+*/
+
+
+/*
+속성 선택자 - [속성 = '값'] 으로 선택할 수 있다
+*/
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #dbdbdb;
+}
+/*
+위의 코드는 음, 그 input태그들의 길이 및 디자인을 정해준 코드
+*/
+
+
+/*
+input:focus = input이 선택(클릭, tab으로) 되었을 때
+*/
+input:focus {
+    outline: none;
+    border: 1px solid #dbdbdb;
+}
+/*
+outline의 경우, 클릭되었을때, 테두리가 어떻게 되는가
+.. outline: none을 설정해주지 않으면, 테두리가 찐하게 표시된다
+*/
+
+
+/* 태그 속성 */
+input:disabled {
+    background-color: #fff;
+    color: #999;
+    /*
+    자주 쓰는 cursor값
+    1. pointer - 검지손가락으로 누르는 모양
+    2. default - 기본 마우스
+    3. not-allowed - 금지 모양
+    */
+    cursor: not-allowed;
+}
+
+/* 하나의 태그가 여러 클래스를 가지는 경우 */
+/* .item.toggle = item이라는 단어와 toggle이라는 단어가 둘다 있는 경우 */
+.item.toggle{
+    display: flex;
+    /* display: flex;를 해주면, 세로로 배열된것들이 가로로 배열된다 */
+    align-items: center;
+}
+
+
+/* 형제 선택자 */
+/*
+type이 checkbox인 input기준으로
+바로 뒤에 발견되는 label태그
+*/
+/* < 조건 >
+1. 반드시 형제 관계
+2. 중간에 다른 요소가 끼면 X
+*/
+input[type="checkbox"] + label {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+
+
+/* 이제는 save만 손보면 됨 */
+.save {
+    width: 100%;
+    background-color: #4499ee;
+    color: #fff;
+
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px;
+}

@@ -1,0 +1,71 @@
+
+main {
+    width: 80vh;
+    margin: 50px auto;
+}
+
+.board {
+    /* board 부모 크기 전체 물려받음 */
+    width: 100%;
+
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    font-size: 16px;
+}
+
+.board th,
+.board td{
+    /* 
+    테이블에서 위아래 폭은 height지정 X 
+    -> 보통 위아래 padding으로 조절 가능
+    */
+    padding: 10px 8px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.board thead > th {
+    background-color: #eee;
+    border-bottom: 2px solid #ccc;
+}
+
+.board th:nth-child(1),
+.board th:nth-child(1){
+    width: 70px;
+}
+
+
+.board th:nth-child(2){
+    width: 200px;
+}
+.board th:nth-child(2){
+    width: 200px;
+}
+
+.board th:nth-child(3),
+.board th:nth-child(3){
+    width: 140px;
+}
+
+.board th:nth-child(4),
+.board th:nth-child(4){
+    width: 90px;
+}
+
+
+.board th:nth-child(5),
+.board th:nth-child(5){
+    width: 50px;
+}
+
+
+.board tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+.board tbody tr:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}

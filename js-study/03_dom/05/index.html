@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>게시판</h1>
+        </header>
+        <!-- 게시물 목록 -->
+        <div id="postListContainer" class="page-container active">
+            <h2>전체 게시물</h2>
+            
+            <ul id="postList" class="list-container">
+            </ul>
+
+            <div id="pagination" class="pagination"></div>
+        </div>
+        <!-- 상세페이지 -->
+        <div id="postDetailContainer" class="page-container">
+            <h2 id="detailTitle"></h2>
+            <p>
+                게시글ID: <span id="detailId">sdf</span>
+                작성자: <span id="detailUserId">sdf</span>
+            </p>
+            <p id="detailBody">sdfsdfsdf</p>
+            <button id="backBtn">목록으로</button>
+        </div>
+    </div>
+    <script src = "./render.js"></script>
+</body>
+</html>
