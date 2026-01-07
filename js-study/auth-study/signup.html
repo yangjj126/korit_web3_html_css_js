@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./siginup.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="signup-container">
+        <h2 class="signup-title">회원가입</h2>
+        <div class="form-group">
+            <label for="username">아이디</label>
+            <input type="text" id="username" placeholder="아이디 입력">
+            <p class="error-message" id="usernameError"></p>
+        </div>
+        <div class="form-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" placeholder="패스워드 입력">
+            <p class="error-message" id="passwordError"></p>
+        </div>
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" placeholder="이름 입력">
+            <p class="error-message" id="nameError"></p>
+        </div>
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" placeholder="이메일 입력">
+            <p class="error-message" id="emailError"></p>
+        </div>
+        
+        <button id="signupBtn" class="signup-btn">회원가입</button>
+    </div>
+</body>
+<script>
+    // dom요소들 가져옵시다
+    const usernameInput = document.querySelector("#username");
+    const passwordInput = document.querySelector("#password");
+    const nameInput = document.querySelector("#name");
+    const emailInput = document.querySelector("#email");
+
+    const signupBtn = document.querySelector("#signupBtn");
+    const errorMsgs = document.querySelectorAll(".error-message");
+
+    const signupReq = async () => {
+
+        const usernameVal = usernameInput.value;
+        const passwordVal = passwordInput.value;
+        const nameVal = nameInput.value;
+        const emailVal = emailInput.value;
+
+        // 백엔드 dto 필드명과 key를 대응시켜 줘야 한다.
+        let signupData = {
+            username: usernameVal,
+            password: passwordVal,
+            name: nameVal,
+            email: emailVal,
+        };
+
+        // 디버깅용
+        console.log(signupData);
+
+        // JSON으로 변환해줘서 body에 주입
+        signupData = JSON.stringify(signupData);
+        
+
+        // 서버로 회원가입 데이터 전송
+        try {
+        const response = await fetch(
+        "http://localhost:8080/auth/signup",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            // header이 의미하는 바는 보내는 데이터의 형식이 JSON파일이라는 것이다
+            body: signupData
+            // json파일을 보낸다..
+        });
+
+        // 200대 코드 내려 왔을 때,,
+        if (response.ok) {
+            alert("회원가입 성공");
+            return;
+        }
+
+
+
+
+
+        // validation 예외 응답
+        if (response.status === 400){
+            // List<Map<String, String>>
+            const errorResData = await response.json();
+            console.log(errorResData);
+
+
+            const errorMap = {};
+            for (let errorObj of errorResData){
+                // {username : 어쩌고}
+                // 객체에 있는 것을 -> list에 담기
+                let entries = Object.entries(errorObj);
+                // entries는 리스트안에 리스트를 새롭게 요소를 만들어준다..
+                // [["username", "어쩌고"]] 이렇게 변환시킨다
+
+
+                entries = entries[0]
+                // ["username", "어쩌고"]
+
+
+                // 비구조 할당.. 함 -- 이해하기....
+                const [field, message] = entries;
+
+
+                // js객체에 필드 추가
+                // 객체.필드명 = 필드값
+                // 필드명에 변수에 담긴 값을 쓰고 싶을때
+                // 객체[변수] = 필드값
+                errorMap[field] = message; // 이 부분 이해 안됨
+                // errormap완성
+            }
+
+            const errorFields = Object.keys(errorMap);
+            for (let field of errorFields){
+                // 태그에 심어둔 아이디 찾기
+                const errorMsgId = field + "Error";
+                const errorMsgSpan = document.querySelector(`#${errorMsgId}`);
+                // username이나, email등 중에서 error의 id를 가져온다
+
+                errorMsgSpan.innerText = errorMap[field];
+
+
+                const input = document.querySelector(`#${field}`)
+                input.value = ""; // 잘못 입력 하게 되면, 해당 input칸을 비워준다..
+                input.focus();
+            }
+        }
+
+
+
+
+
+
+
+        } catch (error) {
+            console.error(error);
+            alert("요청 중 문제가 발생했습니다.");
+        }
+        }
+
+    signupBtn.addEventListener("click", signupReq)
+</script>
+</html>

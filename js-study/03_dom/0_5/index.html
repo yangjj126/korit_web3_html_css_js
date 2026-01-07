@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>게시판</h1>
+        </header>
+
+        <!-- active를 목록과 상세페이지를 왔다갔다 할거다 -->
+        <!-- 게시글 목록 -->
+         <div id="postListContainer" class="page-container active">
+            <h2>전체 게시물</h2>
+            <ul id="postList" class="list-container">
+            </ul>
+            <div id="pagination" class="pagination"></div>
+         </div>
+
+         <!-- 상세페이지 -->
+          <div id="postDetailContainer" class="page-container">
+            <h2 id="detailTitle"></h2>
+            <p>
+                게시글ID: <span id="detailId">sss</span>
+                작성자: <span id="detailUserId">sss</span>
+            </p>
+            <p id="detailBody">sfdf</p>
+            <button id="backBtn">목록으로</button>
+          </div>
+    </div>
+    <script>
+        // 필요한 태그들 가져오기
+        // 게시물 목록
+        const postListContainer = document.querySelector("#postListContainer");
+        const postList = document.querySelector("#postList");
+        const pagination = document.querySelector("#pagination");
+
+        // 상세페이지
+        const postDetailContainer = document.querySelector("#postDetailContainer")
+        const detailTitle = document.querySelector("#postDetailContainer")
+        const detailId = document.querySelector("#postDetailContainer")
+        const detailUserId = document.querySelector("#postDetailContainer")
+        const detailBody = document.querySelector("#postDetailContainer")
+        const backBtn = document.querySelector("#postDetailContainer")
+
+        // 전역변수
+        let currentPage = 1; // 바뀜
+        let totalPage = 1; // 바뀝
+        const pageSize = 10;
+        const BASE_URL = "https://gorest.co.in/public/v2/posts"
+        // https://gorest.co.in/public/v2/posts?page=1&per_page=10
+
+        // 페이지 번호를 매개변수로 받아와서, 게시글을 요청하는 비동기 함수 작성
+        const loadPosts = async(page) => {
+            postList.innerHTML = "<li>불러오는 중</li>"
+
+            // 강의 6 -> fetch랑, await, promise객체 부분 복습해야함
+            const url = `${BASE_URL}?page=${page}&per_page=${pageSize}`;
+            // resolve결과를 response에 담는다
+            // await - 완료될때까지, 대기
+            const response = await fetch(url);
+            const posts = await response.json();
+
+            // 처음 배우는 것
+            // 전체 페이지수가 응답헤더에 담겨있을 수 있음
+            let pageCount = response.headers.get("X-Pagination-Pages");
+            pageCount = parseInt(totalPage);
+            totalPage = pageCount; // 전역변수 덮어쓰기
+
+            // post를 렌더링 -> 매개변수로 posts를 넘겨줄거임
+            renderPostList(posts);
+            // 페이지네이션 렌더링
+        }
+
+        // 게시글 렌더링 함수
+        const renderPostList = (posts) => {
+            // data-id 속성
+            // HTML에 데이터를 숨겨서 저장 할 수 잇는 속성
+            // JS에서 요소.dataset으로 접근 가능
+            // data-{id} -> 요소.dataset.id
+            // data-{qwer} -> 요소.dataset.qwer
+
+            // --> id숫자만 들고 올 수 있는것...
+            let myHtml = "";
+            for (let post of posts){
+                myHtml += `
+                    <li>
+                        <span class="post-title" data-id="${post.id}">
+                            ${post.title}
+                        </span>
+                        <button class="detail-btn" data-id="${post.id}">
+                            상세보기
+                        </button>
+                    </li>
+                `;
+            }
+        }
+
+        // 페이지네이션 --> 오늘 마저 그, 수업마치고, 37분 남음
+        const renderPagination = () => {
+            let myHtml = "";
+            // [처음] [이전] [현재-2] [현재-1] [현재] [현재+1] [현재+2] [다음] [마지막]
+
+            myHtml += `
+                <button>
+                    
+                </button>
+            `
+        }
+
+    </script>
+</body>
+</html>

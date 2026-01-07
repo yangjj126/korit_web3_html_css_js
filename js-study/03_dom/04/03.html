@@ -7,26 +7,31 @@
 </head>
 <body>
     <h1>상품목록</h1>
-    <ul class="product-list"></ul>
+    <ul class="product-list">
+    </ul>
 
     <h2>장바구니</h2>
     <button class="save-btn">주문 저장</button>
     <button class="load-btn">주문 불러오기</button>
-    <ul class="cart-list"></ul>
+    <ul class="cart-list">
+    </ul>
 </body>
 <script>
-    // 전역변수
+    // 전역 변수
     let cart = [];
+    // 요 cart에 다담을 거임
     const products = [
-        { name: "아이스 아메리카노", price: 2000}, // 이거 하나씩 product에 해당 한다
-        { name: "바닐라 라떼", price: 3500 }, // 얘도 product
-        { name: "초코 라떼", price: 4000 }, // 얘도 product
-    ];
+        {name: "아이스 아메리카노", price: 2000},
+        {name: "바닐라 라떼", price: 3500},
+        {name: "초코 라떼", price: 4000}
+    ]
+    // products의 요소를 product로 두고, 이요할서임
+
 
     // 상품 렌더
     const productUl = document.querySelector(".product-list");
 
-    // <ul class="product-list"></ul>에 li내용들을 삽입하기
+    // <ul class="product-list"></ul> 에 li내용들을 삽입하기
     const productRender = () => {
         let myHtml = "";
         // 일단 빈칸으로 myHtml을 비워두기
@@ -34,7 +39,9 @@
         // 상품이름 - ~원
         // 수량을 선택할수있는 input(type = "number")
         // 주문 버튼
-        let idx = 0;
+        let idx = 0; 
+        // input의 id를 설정해주기 위해서, idx를 설정했고, 
+        // 0부터 점점 1씩 커지게끔 설정함
         for( let product of products ) {
             myHtml += `
                 <li> 
@@ -44,12 +51,18 @@
                 </li>
             `;
             idx++;
-            // idx로는 수를 하나씩 증가시켜서, id를 qty-1,2,3이런식으로 다르게 설정헤놓기
+            // idx로는 수를 하나씩 증가시켜서, 
+            // id를 qty-1,2,3 이렇게
+            // id를 order-1,2,3 이렇게 다르게 설정하기
         }
 
         productUl.innerHTML = myHtml;
         // ul태그안의 product-list에 쌓아놓은 myHtml넣기
+        // 뒤쪽에서 이미 productRender리턴하면, 함수 완성 ㅅㅅ.
     }
+
+
+
 
 
 
@@ -58,21 +71,28 @@
     const cartUl = document.querySelector(".cart-list");
     const saveBtn = document.querySelector(".save-btn");
     const loadBtn = document.querySelector(".load-btn");
+    // ul태그를 어떻게 들고올것인가....
+
 
 
     // 주문버튼 클릭
     // productUl안에는 이미 상품리스트요소들이 다 들어가 있는 상태이다
+    // .product-list == productUl임 여기에서 li꺼내다 쓰는것
     productUl.addEventListener("click", (e) => {
         const target = e.target; // productUl안에 있는 li요소들 중 내가 클릭한 요소 = target
         const id = target.id; // 내가 클릭한 요소의 id
         // console.log(target); // li들중 내가 클릭한 요소
         if (!id.startsWith("order")){ // <button id="order-${idx}">주문</button>을 클릭했을때만, 반응하도록 설계
+            // 만약, 버튼의 id라면, 함수를 적용시키지 않겠다..
             return;
         }
-        // console.log(id); // li들중 내가 클릭한 요소의 id(주문) ==> -- id를 최종적으로 뽑앗엉       
+
+        // console.log(id); , li들중 내가 클릭한 요소의 id(주문) ==> -- id를 최종적으로 뽑앗엉
         // 이제 할 것은 id -> product의 index 추출
         let idx = id.replace("order-", ""); // id를 숫자만 남겨두기.
-        idx = parseInt(idx); // 해당 숫자는 "문자타입"이기 때문에, parseInt를 통해서 정수형으로 바꾸기
+        // order부분을 아예 없애버리고, 숫자부분만 남게끔 설정
+        idx = parseInt(idx); 
+        // 해당 숫자는 "문자타입"이기 때문에, parseInt를 통해서 정수형으로 바꾸기
         // ---- 버튼 누르면, 
         
         
@@ -80,20 +100,30 @@
         // 이건 위의 코드와 별개의 코드들, 즉, qtyInput으로 id가 qty-${idx}인 친구들 들고오기
         // 수량 input
         const qtyInput = document.querySelector(`#qty-${idx}`); // id = qty-${idx}를 들고와서
-        let qty = qtyInput.value; // 해당 input의 값을 도출해내고
-        qty = parseInt(qty); // 그 값 또한 정수로 바꾼다
+        let qty = qtyInput.value; // 해당 "input의 값"을 도출해내고
+        qty = parseInt(qty); // 그 "값" 또한 "정수" 로 바꾼다
 
         const product = products[idx];
         // 주문 내역을 cart에 저장
         
-        // 만약에, 기존 cart에 상품이 있다면, qty 누적합
+        // 2... 만약에, 기존 cart에 상품이 있다면, 
+        //      qty 누적합을 구하기
         const item = cart.find((item) => {
             return item.name === product.name;
         });
 
         
-        if (item) { // true일때 -> qty 추가
-                
+        if (item) { // true일때 -> qty 누적합
+            cart = cart.map((item) => {
+                if (item.name === product.name){
+                    return {
+                        ...item,
+                        quantity: item.quantity + qty
+                    }
+                }
+                return item;
+            });
+
         } else { // false일때 -> 새로 추가
             cart.push({
                 name : product.name,
@@ -104,7 +134,7 @@
         
 
 
-        // 없다면, 새로 추가
+        // 1.. 없다면, 새로 추가
         cart.push({
             name : product.name,
             price : product.price,
@@ -138,6 +168,36 @@
 
         cartUl.innerHTML = myHtml;
     }
+
+
+    // 더 아래부분은 나중에 이해해보기
+
+    
+    // localStorage에 저장
+    saveBtn.addEventListener("click" , () => {
+        // js객체 -> json변환
+        // cart에 이미 많은 것들이 저장되어있을 가능성이 높음ㅌ
+        const jsonCart = JSON.stringify(cart)
+        localStorage.setItem("cart", jsonCart);
+
+        alert("저장되었습니다");
+        cartUl.innerHTML = "";
+    });
+
+
+    // localStorage 불러오기
+    loadBtn.addEventListener("click", () => {
+        const jsonCart = localStorage.getItem("cart");
+        if (!jsonCart){ // 저장한게 없다면
+            alert("저장된데이터가 존재하지 않습니다");
+            return;
+        }
+
+        // 전역 cart 변수에 대입
+        cart = JSON.parse(jsonCart);
+        renderCart();
+    })
+
 
     productRender();
 </script>

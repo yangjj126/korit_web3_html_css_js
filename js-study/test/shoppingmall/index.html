@@ -27,6 +27,11 @@
         <section class = "product-list"></section>
     </main>
     <div class="modal-overlay hidden">
+        <!-- 사라졌다, 나타났다 하게끔 하려면, 
+        1. class이름 뒤에 hidden을 붙여주고
+        2. css에 .hidden { display: none } 을 걸어주면, 
+            해당 class안에 있는 요소들은 다 안보이게 된다
+        -->
         <div class="cart-modal">
             <div class="modal-header">
                 <h2>장바구니</h2>
@@ -45,6 +50,11 @@
     // dom 요소들
     const productList = document.querySelector(".product-list");
 
+    // 장바구니 관련 dom 요소들 //
+    const cartButton = document.querySelector(".cart");
+    const modalOverlay = document.querySelector(".modal-overlay");
+    const cartList = document.querySelector(".cart-list");
+    const closeModalBtns = document.querySelector(".close-btn");
 
 
     // 전역변수
@@ -86,6 +96,7 @@
         // 버튼을 누르면, product의 id를 추출할 수 있게
         // 전역에 있는 productDataList에서 id로 해당 상품을 특정해서
         // localStorage에 담아줄겁니다.
+
         const html = `
             <div class="product-card">
                 <div class="image-box">
@@ -99,6 +110,26 @@
         return html;
     }
 
+    const createCartCardHTML = (item) => {
+    const {image, title, price, id, count} = item;
+    const HTML = `
+        <li class="cart-item">
+            <img src = "${image}"/>
+            <div class="cart-info">
+                <p class="title">${title}</p>
+                <p class="price">$${price}</p>
+                <div class="quantity">
+                    <button class="minus" data-id="${id}">-</button>
+                    <span>${count}</span>
+                    <button class="plus" data-id="${id}">+</button>
+                </div>
+            </div>
+            <button class="delete-btn" data-id="${id}">삭제</button>
+        </li>
+    `;
+    return HTML;
+}
+
     // productList안에 card들을 만들어 줬음
     // card안에 버튼에서 이벤트가 생성이 되고, -> 전파.. -> productList에서 감지될것임
     productList.addEventListener("click", (e) => {
@@ -106,13 +137,18 @@
         const target = e.target;
         const targetName = target.tagName;
         
-        if (targerName !== "BUTTON") {
+        if (targetName !== "BUTTON") {
+            return;
+        }
+
+        const agree = confirm("장바구니에 담으시겠습니까?")
+        if (!agree){
             return;
         }
 
         // 진짜로 복습을 해야 할것 같다
         
-        // 이래부분은 button만 동작한다
+        // 아래부분은 button만 동작한다
         // 클릭한 버튼의 data-id를 가져와야 함
         const productId = target.setdata.proudctId;
         productId = parseInt(productId); // 숫자로 -> 숫자
@@ -137,7 +173,7 @@
         // 삼항연산자 사용
         const savedCart = localStorage.getItem("cart");
         
-        // 최초면, falsy, 최초가 아니면, trurhy
+        // 최초면, falsy, 최초가 아니면, truthy
         // 값 ? truthy일때 값 : falsy일때 값 --
         const cart = savedCart ? JSON.parse(savedCart) : [];
         
@@ -148,7 +184,7 @@
         });
         
         if (existingItem){ // cart에 이미 값이 있다면
-            existingItem.count += 1;    
+            existingItem.count += 1;
         } else { // 없다면
             const {id, title, price, image} = selectedProduct;
             const newItem = {
@@ -165,7 +201,178 @@
         // 로컬스토리지에 저장하기
         const savingData = JSON.stringify(cart);
         localStorage.setItem("cart", savingData);
+        
     })
+
+
+    const renderCart = () => {
+        // 로컬스토리지에 있는 데이터를 기반으로 렌더링 해줄거임
+        let cartData = localStorage.getItem("cart");
+        // 저장된 cart데이터들
+
+        if (!cartData){
+            cartData = []; // 아무것도 안 담은 경우
+        } else {
+            cartData = JSON.parse(cartData);
+        }
+
+        cartList.innerHTML = ""; // 기존장바구니 목록 초기화
+
+        const myHtml = "";
+        for (let item of cartData) {
+            const itemCartHTML = createCartCardHTML(item);
+            myHtml += itemCardHTML;
+        }
+
+        // 완성 후 html 주입
+        cartList.innerHTML = myHtml;
+    }
+
+   
+    
+
+
+    // 사라졌다, 나타났다 하게끔 하려면,
+    // 1. class이름 뒤에 hidden을 붙여주고
+    // 2. css에 .hidden { display: none } 을 걸어주면,
+    //    해당 class안에 있는 요소들은 다 안보이게 된다
+    cartButton.addEventListener( "click" , () => {
+        // 모달을 보이게 하는 방법 - modalOverlay에 있는 hidden클래스를 제거한다
+        modalOverlay.classList.remove("hidden");
+        // 장바구니 모달안에 그려 주세요
+        renderCart();
+    })
+
+
+    for (let btn of closeModalBtns){
+        btn.addEventListener("click", () => {
+            // 모달이 사라지게
+            // 얘는 그러면, hidden을 붙여주면 된다
+            modalOverlay.classList.add("hidden");
+        })
+    }
+
+//         const createCartCardHTML = (item) => {
+//     const {image, title, price, id, count} = item;
+//     const HTML = `
+//         <li class="cart-item">
+//             <img src = "${image}"/>
+//             <div class="cart-info">
+//                 <p>${title}</p>
+//                 <p>$${price}</p>
+//                 <div class="quantity">
+//                     <button class="minus" data-id="${id}">-</button>
+//                     <span>${count}</span>
+//                     <button class="plus" data-id="${id}">+</button>
+//                 </div>
+//             </div>
+//             <button class="delete-btn" data-id="${id}">삭제</button>
+//         </li>
+//     `;
+//     return HTML;
+// }
+
+
+
+
+    // 장바구니 내부 이벤트
+    cardList.addEventListener("click", (e) => {
+        // 1. ul에서 target.dataset.id로 li를 특정할거임
+        // 2. class이름으로 어떤 버튼인지 특정
+        const target = e.target;
+
+
+        const clickItemId = target.dataset.id;
+        // li를 특정 완료..
+        clickItemId = parseInt(clickItemId);
+        // 버튼들에만 id를 심어놨음
+
+
+
+        // id가 없다면, return
+        if (!clickItemId){
+            return;
+        }
+        console.log(clickItemId);
+
+
+        // 지금 무슨 로직을 하고 있는거지..
+
+        // 로컬스토리지에서 데이터를 가져와서
+        // 로컬스토리지에는 이미 데이터가 저장되어있는 상태임
+        // 그리고 질문을 할꺼면, 제발 공부를 해와서 그걸 질문을 해라 
+        let savedData = localStorage.getItem("cart");
+        if (!savedData){
+            savedData = [];
+            // 정버구니에 아무것도 안 담았다면 (falsy라면)
+        } else {
+            savedData = JSON.parse(savedData);
+            // 뭐라도 담았다면..(truthy라면)
+        }
+
+        // 해당 id의 상품을 특정
+        // 복습해주기
+        const targetItem = savedData.find((item) => {
+            return item.id === clickItemId;
+        })
+
+        if (!targetItem){
+            return;
+        }
+        // 해당 id의 상품을 특정 - js 객체
+        // 버튼을 특정
+        // plus클래스를 가지면, -> 객체.count + 1
+        const isPlus = target.classList.contains("plus");
+        if (isPlus){
+            targetItem.count += 1;
+        }
+
+        // minus이면, -> 객체.count - 1
+        const isMinus = target.classList.contains("minus");
+        // boolean임
+        // count가 1아래로 떨어지면 X
+        // count가 음수가 되면, X
+        if (isMinus){
+            targetItem.count -= 1;
+            if (targetItem.count < 0){
+                targetItem.count = 1;
+            }
+        }
+        
+
+        
+
+        // delete-btn -> cart에서 해당객체를 삭제
+        const isDelete = target.classList.contains("delete-btn");
+ 
+        
+        
+        // splice로 삭제
+        if (isDelete){
+            const agree = confirm("삭제하기겠습니까?")
+        }
+        // savedData에서 targetItem의 index를 찾아서,
+        let targetIdx = -1;
+        for (let i = 0; i<savedData,length; i++){
+            if (savedData[i] === targetItem) {
+                targetIdx = i;
+            }
+        }
+
+        // 내일은 하루종일 JS복습만 해야 할듯.........................
+        // .........................................................
+
+
+        //        해당 id의 상품을 특정
+        // const targetItem = savedData.find((item) => {
+        //     return item.id === clickItemId;
+        // })
+
+
+        // 로컬스토리지에 다시 저장
+        // 렌더링()
+    })
+
     // 다음시간까지 무조건 복습 해라 그전것까지 제발...
     loadProducts();
 </script>

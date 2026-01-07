@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="practice">
+    </ul>
+</body>
+<script>
+    const products = [
+        {name: monkey, price: 2000},
+        {name: billyjean, price: 4000},
+        {name: cameroon, price: 5000}
+    ]
+
+    let productUl = document.querySelector("practice");
+    const renderProducts = () => {
+        let myHtml = "";
+        let idx = 0;
+
+        for (product of products){
+            myHtml += `
+                <li>
+                    상품: ${product.name} , 가격: ${product.price}
+                    <input type="number" id="qty-${idx}"/>
+                    <button id="btn-${idx}">주문하기</button>
+                </li>
+            `
+            idx++;
+        }
+
+        productUl.innerHTML = myHtml;
+    }
+</script>
+</html>
